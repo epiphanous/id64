@@ -1,0 +1,20 @@
+{
+  "name": "id64",
+  "version": "1.0.0",
+  "homepage": "https://github.com/nextdude/id64",
+  "description": "Generate time-sortable, globally unique, short identifiers",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/nextdude/id64.git"
+  },
+  "scripts": {
+    "test": "set -e; for t in test/*.js; do node $t; done"
+  },
+  "author": "Robert Lyons <nextdude@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "d64": "^1.0.0",
+    "uuid": "^3.0.1"
+  }
+}
