@@ -2,7 +2,7 @@
   "name": "id64",
   "version": "1.0.0",
   "homepage": "https://github.com/nextdude/id64",
-  "description": "Generate time-sortable, globally unique, short identifiers",
+  "description": "Generate short, globally unique, time-sortable, url-safe, lexicographically stable string identifiers.",
   "main": "index.js",
   "repository": {
     "type": "git",
