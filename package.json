@@ -1,12 +1,12 @@
 {
   "name": "id64",
   "version": "1.0.0",
-  "homepage": "https://github.com/nextdude/id64",
+  "homepage": "https://github.com/epiphanous/id64",
   "description": "Generate short, globally unique, time-sortable, url-safe, lexicographically stable string identifiers.",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com/nextdude/id64.git"
+    "url": "git@github.com/epiphanous/id64.git"
   },
   "scripts": {
     "test": "set -e; for t in test/*.js; do node $t; done"
