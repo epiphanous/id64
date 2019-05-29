@@ -16,5 +16,6 @@
   "dependencies": {
     "d64": "^1.0.0",
     "uuid": "^3.0.1"
-  }
+  },
+  "types": "index.d.ts"
 }
