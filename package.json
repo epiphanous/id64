@@ -9,7 +9,7 @@
     "url": "git@github.com/epiphanous/id64.git"
   },
   "scripts": {
-    "test": "set -e; for t in test/*.js; do node $t; done"
+    "test": "cd test && node test.js && echo OK || echo NOT OK"
   },
   "author": "Robert Lyons <nextdude@gmail.com>",
   "license": "MIT",
