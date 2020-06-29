@@ -51,3 +51,14 @@ To generate a *reversible* id (ie, you can recover the original uuid that underl
 const myID = id64.gen(true); // eg, 3TcMNgcF_a1dVs4SVc4vtF
 const origUUID = id64.ungen(myID); // eg, ca109660-1762-11ea-a983-815d82817be5
 ```
+
+You can also recover the underlying timestamp of the id in several formats:
+
+```javascript
+const id     = id64.gen();
+                                // timestamp of the id as...
+const ticks  = id64.ticks(id);  // 100-nanonsecond intervals since gregorian epoch
+const micros = id64.micros(id); // microseconds since unix epoch
+const millis = id64.millis(id); // milliseconds since unix epoch
+const date   = id64.date(id);   // a javascript Date
+```

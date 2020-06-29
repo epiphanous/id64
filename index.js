@@ -1,12 +1,17 @@
-var uuidv1 = require('uuid/v1');
-var d64 = require('d64');
+const {v1: uuidv1} = require('uuid');
+const d64 = require('d64');
 
+const GREGORIAN_OFFSET = 122192928000000000;
+
+/**
+ * Generate an id
+ */
 function gen(reversible, test) {
   reversible = !!reversible;
   test = !!test;
-  var buf = new Array(16);
+  const buf = new Array(16);
   uuidv1(null, buf, 0);
-  var a = reversible
+  const a = reversible
     ? [
         buf[6],
         buf[7],
@@ -42,13 +47,16 @@ function gen(reversible, test) {
         buf[14],
         buf[15],
       ];
-  var id = d64.encode(Buffer.from(a));
+  const id = d64.encode(Buffer.from(a));
   return test ? [id, format_uuid(Buffer.from(buf))] : id;
 }
 
-function ungen(id, k) {
-  var z = k || 17;
-  var b = d64.decode(id);
+/**
+ * Return the uuid of the id
+ */
+function ungen(id) {
+  const z = 17;
+  let b = d64.decode(id);
   if (b.length == 15) {
     b = Buffer.from([
       b[0],
@@ -91,8 +99,15 @@ function ungen(id, k) {
   );
 }
 
+/**
+ * Return the uuid of the id
+ */
+function uuid(id) {
+  return ungen(id);
+}
+
 function format_uuid(b) {
-  var s = b.toString('hex');
+  const s = b.toString('hex');
   return (
     s.substr(0, 8) +
     '-' +
@@ -106,7 +121,44 @@ function format_uuid(b) {
   );
 }
 
+/**
+ * Return ticks of the id (since the gregorian epoch)
+ */
+function ticks(id) {
+  const uuid = ungen(id).split('-');
+  return parseInt([uuid[2].substring(1), uuid[1], uuid[0]].join(''), 16);
+}
+
+/**
+ * Return microseconds of the id (since the unix epoch)
+ */
+function micros(id) {
+  const t = ticks(id);
+  return Math.floor((t - GREGORIAN_OFFSET) / 10);
+}
+
+/**
+ * Return milliseconds of the id (since the unix epoch)
+ */
+function millis(id) {
+  const t = micros(id);
+  return Math.floor(t / 1000);
+}
+
+/**
+ * Return the date of the id
+ */
+function date(id) {
+  return new Date(millis(id));
+}
+
 module.exports = {
+  GREGORIAN_OFFSET: GREGORIAN_OFFSET,
   gen: gen,
   ungen: ungen,
+  uuid: uuid,
+  ticks: ticks,
+  micros: micros,
+  millis: millis,
+  date: date
 };
