@@ -3,15 +3,8 @@ const d64 = require('d64');
 
 const GREGORIAN_OFFSET = 122192928000000000;
 
-/**
- * Generate an id
- */
-function gen(reversible, test) {
-  reversible = !!reversible;
-  test = !!test;
-  const buf = new Array(16);
-  uuidv1(null, buf, 0);
-  const a = reversible
+function _shuffle(buf, reversible) {
+  return reversible
     ? [
         buf[6],
         buf[7],
@@ -47,6 +40,17 @@ function gen(reversible, test) {
         buf[14],
         buf[15],
       ];
+}
+
+/**
+ * Generate an id
+ */
+function gen(reversible, test) {
+  reversible = !!reversible;
+  test = !!test;
+  const buf = new Array(16);
+  uuidv1(null, buf, 0);
+  const a = _shuffle(buf, reversible);
   const id = d64.encode(Buffer.from(a));
   return test ? [id, format_uuid(Buffer.from(buf))] : id;
 }
@@ -97,6 +101,28 @@ function ungen(id) {
       b[15],
     ])
   );
+}
+
+const _h2b = {};
+for (var i=0; i<256; i++) {
+  const h = (i + 0x100).toString(16).substr(1);
+  _h2b[h] = i;
+}
+
+function from_uuid(uuid, reversible) {
+  reversible = !!reversible;
+  const buf = new Array(16);
+  let i = 0;
+  uuid.toLowerCase().replace(/[0-9a-f]{2}/g, function(oct) {
+    if (i < 16) {
+      buf[i++] = _h2b[oct];
+    }
+  });
+  while (i<16) {
+    buf[i++] = 0;
+  }
+  const a = _shuffle(buf, reversible);
+  return d64.encode(Buffer.from(a));
 }
 
 /**
@@ -157,6 +183,7 @@ module.exports = {
   gen: gen,
   ungen: ungen,
   uuid: uuid,
+  from_uuid: from_uuid,
   ticks: ticks,
   micros: micros,
   millis: millis,

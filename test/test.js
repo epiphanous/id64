@@ -8,3 +8,6 @@ lib.checkIds(true);
 
 // times
 lib.checkTime(true);
+
+// from uuid
+lib.checkFromUuid(true);

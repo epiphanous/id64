@@ -49,4 +49,11 @@ function checkTime(reversible) {
   });
 }
 
-module.exports = {genIds: genIds, checkIds: checkIds, checkTime: checkTime};
+function checkFromUuid(reversible) {
+  const {ids, uuids} = genIds(10, reversible);
+  for (let i=0; i<ids.length; i++) {
+    assert(ids[i] === id64.from_uuid(uuids[i], reversible));
+  }
+}
+
+module.exports = {genIds: genIds, checkIds: checkIds, checkTime: checkTime, checkFromUuid:checkFromUuid};

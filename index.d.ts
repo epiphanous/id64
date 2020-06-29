@@ -27,6 +27,14 @@ export declare function ungen(id: string): string;
 export declare function uuid(id: string): string;
 
 /**
+ * Convert an existing v1 uuid to an id64 id.
+ *
+ * @param {string} uuid (must be v1)
+ * @returns {string} the underlying uuid
+ */
+export declare function from_uuid(uuid: string, reversible:boolean=false): string;
+
+/**
  * Returns the datetime of the id in ticks (100 nanosecond intervals since the Gregorian epoch)
  * @param {string} id the `id64` id
  * @returns {number} the ticks
