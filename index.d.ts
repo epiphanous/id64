@@ -8,7 +8,7 @@ export declare const GREGORIAN_OFFSET:number;
  * @param {Boolean} reversible true to make the id reversible (creates 22 char id)
  * @returns {string}
  */
-export declare function gen(reversible: boolean = false): string;
+export declare function gen(reversible: boolean): string;
 
 /**
  * Recover the uuid from the id.
@@ -32,7 +32,7 @@ export declare function uuid(id: string): string;
  * @param {string} uuid (must be v1)
  * @returns {string} the underlying uuid
  */
-export declare function from_uuid(uuid: string, reversible:boolean=false): string;
+export declare function from_uuid(uuid: string, reversible:boolean): string;
 
 /**
  * Returns the datetime of the id in ticks (100 nanosecond intervals since the Gregorian epoch)
