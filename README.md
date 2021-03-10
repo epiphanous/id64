@@ -14,8 +14,8 @@ We first generate a v1 uuid with Kelektiv's
 bits around to make it time sortable and finally encode it with Dominic Tarr's
 very cool [d64](https://github.com/dominictarr/d64). The result is a time
 sortable, globally unique, lexicographically, stable, url-safe, identifier that
-is 20 characters long. If you want to be able to recover the underlying uuid,
-the generated identifier will be 22 characters.
+is 22 characters long. If you don't care about recovering the underlying uuid,
+the generated identifier can be reduced to 20 characters.
 
 ## Install
 
@@ -43,13 +43,16 @@ import id64 from 'id64';
 const id = id64.gen();
 ```
 
-This will return a 20-character id like: `3TYQYVHzfb4.uS27PQMZ`.
+This will return a 22-character id like: `3Ti0cL9b_Z1w0mTZvpk0WF`.
 
-To generate a *reversible* id (ie, you can recover the original uuid that underlies it), pass `true` into the `gen()` method. This will return a 22-character id like: `3TYQYVICro9NORZ_LrrG8F`, which you can reverse like so:
+## UUIDs
+
+You can recover the original v1 UUID encoded in the generated id64 id, 
+as well as the time embedded in that uuid in several formats.
 
 ```javascript
-const myID = id64.gen(true); // eg, 3TcMNgcF_a1dVs4SVc4vtF
-const origUUID = id64.ungen(myID); // eg, ca109660-1762-11ea-a983-815d82817be5
+const myID = id64.gen(); // eg, 3Ti0dNwMcl1ojbBHgw3W2.
+const origUUID = id64.ungen(myID); // eg, 8f17a310-81a5-11eb-b4be-7312b3c1210c
 ```
 
 You can also recover the underlying timestamp of the id in several formats:
@@ -61,4 +64,11 @@ const ticks  = id64.ticks(id);  // 100-nanonsecond intervals since gregorian epo
 const micros = id64.micros(id); // microseconds since unix epoch
 const millis = id64.millis(id); // milliseconds since unix epoch
 const date   = id64.date(id);   // a javascript Date
+```
+
+If you don't care about recovering the underlying UUID, you can get a shorter, 20-character
+id64 identifier by passing `false` to the `gen()` function:
+
+```javascript
+const shorterID = id64.gen(false); // eg, 3Ti0d_i1Fv0x9uTON9YK
 ```
