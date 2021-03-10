@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "id64",
   "version": "1.3.1",
   "homepage": "https://github.com/epiphanous/id64#readme",
@@ -24,8 +25,8 @@
   "scripts": {
     "clean": "rimraf lib",
     "declarations": "tsc -p tsconfig.json",
-    "build:esm": "BABEL_ENV=esmUnbundled babel src --extensions '.ts' --out-dir 'lib/esm' --source-maps",
-    "build:cjs": "BABEL_ENV=cjs babel src --extensions '.ts' --out-dir 'lib/cjs' --source-maps",
+    "build:esm": "BABEL_ENV=esmUnbundled babel src --extensions '.ts' --out-dir 'lib/esm' --out-file-extension .mjs --source-maps",
+    "build:cjs": "BABEL_ENV=cjs babel src --extensions '.ts' --out-dir 'lib/cjs' --out-file-extension .cjs --source-maps",
     "build": "yarn clean && yarn build:esm && yarn build:cjs && yarn declarations",
     "id64": "./id64.js",
     "test": "jest"
