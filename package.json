@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "id64",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "homepage": "https://github.com/epiphanous/id64#readme",
   "description": "Generate short, globally unique, time-sortable, url-safe, lexicographically stable string identifiers.",
   "main": "lib/cjs/index.js",
